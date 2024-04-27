@@ -18,27 +18,38 @@ for string in str_list:
         string = string.replace(keyword, "")
     new_list.append(string)
 new_list = [s for s in new_list if s.strip()]     #過濾空字串
-print(new_list)                                   #得到的新清單
+#print(new_list)                                   #得到的新清單
 
 
-#for i in range(len(List)):
+import re
 
-#i = 1
-#while i < len(List):
-#    if "可以" in List[i]:       #若"可以"在句中，與前一字串合併
-#        List[i-1] += List[i]
-#        del List[i]
-#    else:
-#        del List[i]
-#print(List)
-        
-        
-        #新List若有"可以"，則根據前後標點符號切出要的句子
-         
-        
+def split_string(text, keyword):
+    '''
+    input => text: the string that you want to split.
+             keyword: the word as reference point to find where the beginning and the end marks of the split string are.
+                      Here, the beginning mark will be the punctuation mark before keyword "可以", and the end mark will be the one after keyword.
+    output => 
+    '''
+    pattern = r'[。，；：、．]'                 #定義標點符號
+    start_match = re.search(pattern, text[:text.find(keyword)])    #從keyword前的標點符號為起始點
+    end_match = re.search(pattern, text[text.find(keyword):])      #到keyword後的標點符號為終點
     
+    if start_match:
+        start_index = start_match.end()      #起始點為標點符號後一個位置
+    else:
+        start_index = 0       #如果沒有找到標點符號，則起始點為0
+        
+    if end_match:
+        end_index = text.find(end.match.group(), text.find(keyword))    #終點為下一個標點符號位置
+        if end_index == -1:
+            end_index = len(text)
+    else:
+        end_index = len(text)   #如果沒有找到終點標準符號，則終點為string結尾
     
-    #句子中不需要的(ex. \n, \t)刪掉
+    return text[start_index:end_index]
+        
+
+
     
     #每句換行
     #寫出生成.txt
