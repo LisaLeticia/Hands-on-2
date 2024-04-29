@@ -21,11 +21,9 @@ new_list = [s for s in new_list if s.strip()]     #過濾空字串
 #print(new_list)                                   #得到的新清單
 
 
-import re
-
-def split_string(text, keyword):
+def extract_with_punctuation(sentences, keyword):
     '''
-    input => text: the string that you want to split.
+    input => sentences: the list that you want to split.
              keyword: the word as reference point to find where the beginning and the end marks of the split string are.
                       Here, the beginning mark will be the punctuation mark before keyword "可以", and the end mark will be the one after keyword.
     output => 
@@ -40,13 +38,17 @@ def split_string(text, keyword):
         start_index = 0       #如果沒有找到標點符號，則起始點為0
         
     if end_match:
-        end_index = text.find(end.match.group(), text.find(keyword))    #終點為下一個標點符號位置
+        end_index = text.find(end_match.group(), text.find(keyword))    #終點為下一個標點符號位置
         if end_index == -1:
             end_index = len(text)
     else:
         end_index = len(text)   #如果沒有找到終點標準符號，則終點為string結尾
     
     return text[start_index:end_index]
+
+#split_string(str(new_list), "可以")      #呼叫函式
+
+print(str(new_list))
         
 
 
