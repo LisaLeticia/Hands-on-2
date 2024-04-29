@@ -28,28 +28,35 @@ def extract_with_punctuation(sentences, keyword):
                       Here, the beginning mark will be the punctuation mark before keyword "可以", and the end mark will be the one after keyword.
     output => 
     '''
-    pattern = r'[。，；：、．]'                 #定義標點符號
-    start_match = re.search(pattern, text[:text.find(keyword)])    #從keyword前的標點符號為起始點
-    end_match = re.search(pattern, text[text.find(keyword):])      #到keyword後的標點符號為終點
+    punctuation = r'[。，；：、．]'                 #定義標點符號
+    results = []
     
-    if start_match:
-        start_index = start_match.end()      #起始點為標點符號後一個位置
-    else:
-        start_index = 0       #如果沒有找到標點符號，則起始點為0
-        
-    if end_match:
-        end_index = text.find(end_match.group(), text.find(keyword))    #終點為下一個標點符號位置
-        if end_index == -1:
-            end_index = len(text)
-    else:
-        end_index = len(text)   #如果沒有找到終點標準符號，則終點為string結尾
-    
-    return text[start_index:end_index]
+    for sentence in sentences:
+        start_index = sentence.find(keyword)
+        if start_index != -1:       #從關鍵字位置向前搜索標點符號
+            pre_sub = sentence[:start_index]
+            pre_match = re.search(punctuation + r'[^' + punctuation + r']$', pre_sub)
+            if pre_match:
+                start = pre_match.start() + 1
+            else:
+                start = 0     #如果沒有找到標點符號，則從句子開始處提取
+            
+            post_sub = sentence[start_index + len(keyword):]
+            post_match = re.search(punctuation, post_sub)
+            if post_match:
+                end = start_index + len(keyword) + post_match.end()
+            else:
+                end = len(sentence)
+                
+            
+            results.append(sentence[start:end])
+    return results
 
-#split_string(str(new_list), "可以")      #呼叫函式
 
-print(str(new_list))
-        
+sentences = new_list
+keyword = "可以"
+extracted_sentences = extract_with_punctuation(sentences, keyword)
+print(extracted_sentences)
 
 
     
