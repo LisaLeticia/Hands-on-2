@@ -25,7 +25,7 @@ new_list = [s for s in new_list if s.strip()]     #過濾空字串
 def filter_sentences_with_keyword_in_list(text_list, keyword):
     '''
     '''
-    punctuation = ['。', '，', '？', '！', ',', '.', '?', '!']   #定義標點符號用於分割list中每個字串的句子
+    punctuation = ['。', '，', '？', '！', ',', '.', '?', '!', '（', '）', '、', '：', '「', '」', '；']   #定義標點符號用於分割list中每個字串的句子
     
     # 初始化结果列表
     filtered_text_list = []
@@ -56,20 +56,21 @@ def filter_sentences_with_keyword_in_list(text_list, keyword):
         filtered_text = ''.join(keyword_sentences)
         filtered_text_list.append(filtered_text)
     
-    return filtered_text_list
+    # 将列表中的每个元素以换行的形式呈现
+    result = '\n• '.join(filtered_text_list)
+    return result
 
 # 示例文本列表和关键字
 text_list = new_list
 keyword = "可以"
 
-# 使用函数保留含关键字的句子
-filtered_text_list = filter_sentences_with_keyword_in_list(text_list, keyword)
-print(filtered_text_list)
+# 使用函数保留含关键字的句子，并以换行的形式呈现
+filtered_text = filter_sentences_with_keyword_in_list(text_list, keyword)
 
+# 将结果写入文本文件
+file_path = "filtered_text_ke_yi.txt"
 
+with open(file_path, 'w', encoding='utf-8') as file:
+    file.write('\n• ' + filtered_text)
 
-    
-    #每句換行
-    #寫出生成.txt
-    
-    
+print("文本已保存到文件:", file_path)
