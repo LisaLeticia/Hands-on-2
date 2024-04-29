@@ -18,65 +18,54 @@ for string in str_list:
         string = string.replace(keyword, "")
     new_list.append(string)
 new_list = [s for s in new_list if s.strip()]     #過濾空字串
-print(new_list)                                   #得到的新清單
+#print(new_list)                                   #得到的新清單
 
-import re
-def extract_sentences_without_punctuation(text, keyword):
-    # 定义标点符号，用于分割和清除
-    punctuation_pattern = r'[，。？！,.?!。，；：、．]'
-    
-    # 使用标点符号分割文本为句子
-    sentences = re.split(punctuation_pattern, text)
-    
-    # 过滤出包含关键字的句子
-    keyword_sentences = [sentence for sentence in sentences if keyword in sentence]
-    
-    # 清除句子中的所有标点符号
-    cleaned_sentences = [re.sub(punctuation_pattern, '', sentence) for sentence in keyword_sentences]
-    
-    return cleaned_sentences
 
-# 示例文本和关键字
-text = new_list
+
+def filter_sentences_with_keyword_in_list(text_list, keyword):
+    '''
+    '''
+    punctuation = ['。', '，', '？', '！', ',', '.', '?', '!']   #定義標點符號用於分割list中每個字串的句子
+    
+    # 初始化结果列表
+    filtered_text_list = []
+    
+    # 遍历列表中的每个字符串
+    for text in text_list:
+        # 初始化当前句子
+        current_sentence = ''
+        # 初始化当前句子列表
+        keyword_sentences = []
+        
+        # 遍历字符串中的每个字符
+        for char in text:
+            # 如果当前字符是标点符号，则将当前句子添加到句子列表中并重置当前句子
+            if char in punctuation:
+                if keyword in current_sentence:
+                    keyword_sentences.append(current_sentence)
+                current_sentence = ''
+            # 否则将字符添加到当前句子中
+            else:
+                current_sentence += char
+        
+        # 检查最后一个句子
+        if keyword in current_sentence:
+            keyword_sentences.append(current_sentence)
+        
+        # 组合过滤后的句子为新的字符串，并加入结果列表
+        filtered_text = ''.join(keyword_sentences)
+        filtered_text_list.append(filtered_text)
+    
+    return filtered_text_list
+
+# 示例文本列表和关键字
+text_list = new_list
 keyword = "可以"
 
-# 使用函数提取含关键字的句子
-extracted_sentences = extract_sentences_without_punctuation(text, keyword)
-print(extracted_sentences)
+# 使用函数保留含关键字的句子
+filtered_text_list = filter_sentences_with_keyword_in_list(text_list, keyword)
+print(filtered_text_list)
 
-
-
-#def extract_with_punctuation(sentences, keyword):
-    #'''
-    #input => 
-    #output => 
-    #'''
-    #punctuation = r'[。，；：、．]'                 #定義標點符號
-    #results = []
-    
-    #for sentence in sentences:
-        #for match in re.finditer(keyword, sentence):
-            #start_index = match.start()
-            #end_index = match.end()
-            
-            ##向前找到第一個標點符號
-            #pre_sub = sentence[:start_index]
-            #pre_matches = list(re.finditer(punctuation, pre_sub))
-            #start = pre_matches[0].end() if pre_matches else 0
-            
-            #post_sub = sentence[end_index:]
-            #post_match = re.search(punctuation, post_sub)
-            #end = end_index + post_match.start() if post_match else len(sentence)
-            
-            #results.append(sentences[start:end])
-    
-    #return results
-
-
-#sentences = new_list
-#keyword = "可以"
-#extracted_parts = extract_with_punctuation(sentences, keyword)
-#print(extracted_parts)
 
 
     
