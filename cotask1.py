@@ -1,5 +1,8 @@
 import re
 
+with open("ke_yi_raw.txt", "r", encoding="utf-8") as f:        # read the text from the file
+    raw = f.readlines()
+
 def eliminate(s):
     pattern = re.compile(r'more')
     result = [pattern.sub('\n', x) for x in s]  #replace all the 'more' with \n
@@ -13,9 +16,6 @@ def split_sentence(s):
         sentences.extend(re.split(pattern, text))       #extend the sentence to the splited text
     return sentences
 
-
-with open("ke_yi_raw.txt", "r", encoding="utf-8") as f:        # read the text from the file
-    raw = f.readlines()
 
 sen = split_sentence(raw)             # split the sentences fron the function split_sentence()
 
