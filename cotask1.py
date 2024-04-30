@@ -1,24 +1,24 @@
-import re            #import the regular expression
+import re
 
-with open("ke_yi_raw.txt", "r", encoding="utf-8") as f:
-    S = f.readlines()
-
-def eliminate(S):                           #create a function for eliminating 'more' and spliting the strings depending on the positions where 'more' used to stay at...
-    a = re.compile(r'more')
-    result = [a.sub('\t', x) for x in S]  #[] creates a new list for tha string eliminated all the "more"
-    #sub() method in order to replace occurrences of the pattern specified in the regular expression with the replacement string
+def eliminate(s):
+    pattern = re.compile(r'more')
+    result = [pattern.sub('\n', x) for x in s]  #replace all the 'more' with \n
     return result
 
-result = eliminate(S)
-for x in result:
-    print(x)
-    
-def find_words(S):            #create a finding all the '可以' functions for extracting from the string(S)
-    b = re.compile(r'可以')
-    rule = b.findall(str(S))
-    return rule
+def split_sentence(s):
+    p = eliminate(s)                      #input the text from eliminate(S)
+    pattern = r'可以\t'                   #split the sentence with the pattern "可以"
+    sentences = []                         #create an empty list
+    for text in p:
+        sentences.extend(re.split(pattern, text))       #extend the sentence to the splited text
+    return sentences
 
-rule = find_words(S)
-print(rule)
 
-# and then we're gonna save this as a txt. file... im out of ideas now...dunno wot to do:(
+with open("ke_yi_raw.txt", "r", encoding="utf-8") as f:        # read the text from the file
+    raw = f.readlines()
+
+sen = split_sentence(raw)             # split the sentences fron the function split_sentence()
+
+with open("Yas.txt", "w", encoding="utf-8") as f:           #write into the new file'Yas'
+    for i in sen:
+        f.write(i.strip() + "\n")
