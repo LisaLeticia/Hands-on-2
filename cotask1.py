@@ -17,7 +17,7 @@ def split_sentence(s):
     return sentences
 
 
-sen = split_sentence(raw)             # split the sentences fron the function split_sentence()
+sen = split_sentence(raw)             # split the sen. fron the function split_sentence()
 
 with open("Yas.txt", "w", encoding="utf-8") as f:           #write into the new file'Yas'
     for i in sen:
