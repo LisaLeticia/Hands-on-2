@@ -21,4 +21,4 @@ sen = split_sentence(raw)             # split the sen. fron the function split_s
 
 with open("Yas.txt", "w", encoding="utf-8") as f:           #write into the new file'Yas'
     for i in sen:
-        f.write(i.strip() + "\n")
+        #f.write(i.strip() + "\n")
