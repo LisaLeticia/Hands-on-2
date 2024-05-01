@@ -1,30 +1,30 @@
 with open('ke_yi_raw.txt', 'r', encoding = "utf-8") as file:       #讀檔
-    List = file.readlines()
-    #print(List)
+    inputLI = file.readlines()
+    #print(inputLI)
 
 
 import re
 a = re.compile(r'more')           #用more合併字串
-List1 = a.split(str(List))      
-#print (List1)
+combineLI = a.split(str(inputLI))      
+#print (combineLI)
 
 
-List2 = [s for s in List1]
+cleanedLI = [s for s in combineLI]
 to_remove = ["n","t","\\","[", "'", ",", " "]     #刪除多餘的文字
-for i, s in enumerate(List1):
+for i, s in enumerate(combineLI):
     for x in to_remove:
-        List2[i] = List2[i].replace(x, "")
-#print(List2)
+        cleanedLI[i] = cleanedLI[i].replace(x, "")
+#print(cleanedLI)
 
 
-text = str(List2)               # Define your string with punctuation
-List3 = re.findall(r'\b\w+\b', text)             # Split the string using regular expression to exclude punctuation
-#print(List3)
+text = str(cleanedLI)               # Define your string with punctuation
+nopuncLI = re.findall(r'\b\w+\b', text)             # Split the string using regular expression to exclude punctuation
+#print(nopuncLI)
 
 
 keyword = "可以"                        #若"可以"在字串中，保留字串形成新列表
 new_list = []
-for string in List3:
+for string in nopuncLI:
     if keyword in string:
         new_list.append(string)
 #print(new_list)
