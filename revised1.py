@@ -17,8 +17,8 @@ for i, s in enumerate(combineLI):
 #print(cleanedLI)
 
 
-text = str(cleanedLI)               # Define your string with punctuation
-nopuncLI = re.findall(r'\b\w+\b', text)             # Split the string using regular expression to exclude punctuation
+text = str(cleanedLI)               
+nopuncLI = re.findall(r'\b\w+\b', text)      # 以\b(或說以標點符號為分隔但不要標點符號)分割每個字串中的句子，使其成為更小、以單句為單位的字串列表
 #print(nopuncLI)
 
 
@@ -28,6 +28,10 @@ for string in nopuncLI:
     if keyword in string:
         new_list.append(string)
 #print(new_list)
+
+
+new_list = set(new_list)     #將list轉成set避免句子被重複
+
 
 with open("ke_yi_new_list.txt", 'w', encoding='utf-8') as file:
     for string in new_list:
