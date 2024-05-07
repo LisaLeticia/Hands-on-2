@@ -1,11 +1,12 @@
+import re
+
 with open('ke_yi_raw.txt', 'r', encoding = "utf-8") as file:       #讀檔
     inputLI = file.readlines()
     #print(inputLI)
 
 
-import re
-a = re.compile(r'more')           #用more合併字串
-combineLI = a.split(str(inputLI))      
+more = re.compile(r'more')           #用more合併字串
+combineLI = more.split(str(inputLI))      
 #print (combineLI)
 
 
