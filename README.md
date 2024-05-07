@@ -1,7 +1,7 @@
 # Hands-on 2
 
 ### What is it?
-In Hands-on 2, we write three different kinds of code to select sentences with "可以"(ke yi) from corpus.
+In Hands-on 2, we write three different kinds of code to select sentences with "可以"(ke yi) from corpus.  
 data from corpus: [中央研究院現代漢語平衡語料庫](https://asbc.iis.sinica.edu.tw/)
 
 
