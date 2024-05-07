@@ -22,3 +22,29 @@ sen = split_sentence(raw)             # split the sen. fron the function split_s
 with open("Yas.txt", "w", encoding="utf-8") as f:           #write into the new file'Yas'
     for i in sen:
         #f.write(i.strip() + "\n")
+
+
+
+Revised:
+
+
+
+import re
+
+with open("ke_yi_raw.txt", "r", encoding="utf-8") as f:
+    raw = f.read()
+
+def eliminate(raw):
+    pattern = re.compile(r'more')
+    return pattern.sub('\n', raw)
+
+
+def split_sentences(raw_text):
+    sentences = re.findall(r'(?:.*?可以.*?[。！？；])|(?:可以.*?[。！？；])', raw_text)
+    return sentences
+
+sentences = split_sentences(raw)
+
+with open("Yas.txt", "w", encoding="utf-8") as f:
+    for sentence in sentences:
+        f.write(sentence.strip() + '\n')  # Write each sentence into the file, followed by a newline character
