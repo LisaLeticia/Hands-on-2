@@ -1,3 +1,6 @@
+#!/usr/bin/env python3         #檔頭重要!
+# -*- coding:utf-8 -*-
+
 import re
 
 with open('ke_yi_raw.txt', 'r', encoding = "utf-8") as file:       #讀檔
